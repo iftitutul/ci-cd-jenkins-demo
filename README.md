@@ -1,4 +1,4 @@
-k# ci-cd-jenkins-demo
+# ci-cd-jenkins-demo
 
 1. Configured the PHP MySQL Nginx App using Docker Compose File:
 
