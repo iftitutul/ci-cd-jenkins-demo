@@ -50,7 +50,7 @@
 
 ## Evaluation Criteria for the Task
 
-   - Technical Expertise:
+    - Technical Expertise:
         - The Docker Compose files for both the PHP application stack and Jenkins are correctly configured, ensuring smooth interaction between all services (PHP, MySQL, Nginx, and Jenkins).
         - Jenkins is correctly set up with the necessary plugins and agents to run the CI/CD pipeline.
         - The Jenkinsfile is well-structured with relevant stages for code checkout, build, testing, and deployment.
