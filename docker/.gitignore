@@ -1,0 +1,3 @@
+# Ignore files related to env
+.env
+/db
