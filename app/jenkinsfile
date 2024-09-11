@@ -3,11 +3,10 @@ pipeline {
 
     environment {
         // Define environment variables
-        DB_HOSTNAME=localhost
-        DB_NAME=tickets
-        DB_USER=plat01
+        DB_NAME="tickets"
+        DB_USER="plat01"
         DB_PASSWORD="plat01@2020@"
-        DB_ROOT_USERNAME=root
+        DB_ROOT_USERNAME="root"
         DB_ROOT_PASSWORD="plat01@2020@"
 
         DOCKER_COMPOSE_PATH = './docker-compose.yml'
