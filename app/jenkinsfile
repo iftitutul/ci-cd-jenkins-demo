@@ -12,6 +12,21 @@ pipeline {
         DOCKER_COMPOSE_PATH = './docker-compose.yml'
     }
 
+    stage('Setup Docker Compose') {
+            steps {
+                script {
+                    // Install Docker Compose if not already installed
+                    sh '''
+                    if ! [ -x "$(command -v docker-compose)" ]; then
+                        echo "Docker Compose not found, installing..."
+                        sudo curl -L "https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                        sudo chmod +x /usr/local/bin/docker-compose
+                    fi
+                    '''
+                }
+            }
+        }
+
     stages {
         stage('Checkout') {
             steps {
@@ -61,3 +76,4 @@ pipeline {
         }
     }
 }
+
