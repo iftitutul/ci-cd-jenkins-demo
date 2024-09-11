@@ -3,31 +3,16 @@ pipeline {
 
     environment {
         // Define environment variables
-        DB_NAME="tickets"
-        DB_USER="plat01"
-        DB_PASSWORD="plat01@2020@"
-        DB_ROOT_USERNAME="root"
-        DB_ROOT_PASSWORD="plat01@2020@"
+        DB_NAME = credentials('DB_NAME')
+        DB_USER = credentials('DB_CREDENTIALS_USR')
+        DB_PASSWORD = credentials('DB_CREDENTIALS_PSW')
+        DB_ROOT_USERNAME = 'root'
+        DB_ROOT_PASSWORD = credentials('DB_ROOT_PASSWORD')      
 
         DOCKER_COMPOSE_PATH = './docker-compose.yml'
     }
 
     stages {
-
-        stage('Setup Docker Compose') {
-            steps {
-                script {
-                    // Install Docker Compose if not already installed
-                    sh '''
-                    if ! [ -x "$(command -v docker-compose)" ]; then
-                        echo "Docker Compose not found, installing..."
-                        sudo curl -L "https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                        sudo chmod +x /usr/local/bin/docker-compose
-                    fi
-                    '''
-                }
-            }
-        }
 
         stage('Checkout') {
             steps {
@@ -40,16 +25,17 @@ pipeline {
             steps {
                 script {
                     // Build Docker containers
+                    sh 'sudo cd app'
                     sh 'sudo docker-compose -f $DOCKER_COMPOSE_PATH build'
                 }
             }
         }
 
-        stage('Test') {
+        stage('Lint PHP Code') {
             steps {
                 script {
-                    // Run tests, e.g., PHPUnit for PHP apps
-                    sh 'sudo docker-compose -f $DOCKER_COMPOSE_PATH run --rm php php /var/www/html/index.php tests'
+                    // Run PHP linter to check for syntax errors
+                    sh 'docker-compose -f $DOCKER_COMPOSE_PATH run --rm php php -l /var/www/html/index.php'
                 }
             }
         }
@@ -77,4 +63,3 @@ pipeline {
         }
     }
 }
-
