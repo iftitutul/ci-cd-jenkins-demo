@@ -71,8 +71,7 @@
 
     - Documentation:
         - Step-by-step instructions on configuring Jenkins, setting up the Docker environment, and deploying the PHP application.
-        - Detailed explanation of each stage in the Jenkinsfile and how the CI/CD pipeline works.
-           
+        - Detailed explanation of each stage in the Jenkinsfile and how the CI/CD pipeline works. 
 
     - Functionality:
         - Verified the PHP application is successfully deployed and accessible via http://localhost after following the setup instructions.
