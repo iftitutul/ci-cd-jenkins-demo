@@ -2,7 +2,7 @@
 
 - Create the .env file in the same directory as your docker-compose.yml file and add the environment variable:
 
-JENKINS_ADMIN_PASSWORD="<value>"
+  `JENKINS_ADMIN_PASSWORD="<value>"`
 
 - Run the Docker Compose command to start Jenkins:
 
