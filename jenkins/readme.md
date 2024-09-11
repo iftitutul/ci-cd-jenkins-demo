@@ -6,7 +6,7 @@
 
 - Run the Docker Compose command to start Jenkins:
 
-`docker-compose up -d`
+  `docker-compose up -d`
 
 - Access Jenkins in your browser at http://localhost:8080 (or replace localhost with your server's IP address if running remotely).
 
