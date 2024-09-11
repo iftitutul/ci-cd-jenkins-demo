@@ -12,7 +12,9 @@ pipeline {
         DOCKER_COMPOSE_PATH = './docker-compose.yml'
     }
 
-    stage('Setup Docker Compose') {
+    stages {
+
+        stage('Setup Docker Compose') {
             steps {
                 script {
                     // Install Docker Compose if not already installed
@@ -26,8 +28,7 @@ pipeline {
                 }
             }
         }
-
-    stages {
+        
         stage('Checkout') {
             steps {
                 // Checkout source code from the repository
