@@ -1,0 +1,64 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define environment variables
+        DB_HOSTNAME=localhost
+        DB_NAME=tickets
+        DB_USER=plat01
+        DB_PASSWORD=plat01@2020@
+        DB_ROOT_USERNAME=root
+        DB_ROOT_PASSWORD=plat01@2020@
+
+        DOCKER_COMPOSE_PATH = './docker-compose.yml'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout source code from the repository
+                git branch: 'main', url: 'https://github.com/iftitutul/ci-cd-jenkins-demo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Build Docker containers
+                    sh 'docker-compose -f $DOCKER_COMPOSE_PATH build'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Run tests, e.g., PHPUnit for PHP apps
+                    sh 'docker-compose -f $DOCKER_COMPOSE_PATH run --rm php php /path/to/phpunit tests'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Bring up the application using Docker Compose
+                    sh 'docker-compose -f $DOCKER_COMPOSE_PATH up -d'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Cleanup Docker resources after pipeline
+            sh 'docker-compose -f $DOCKER_COMPOSE_PATH down'
+        }
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed.'
+        }
+    }
+}
